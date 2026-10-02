@@ -64,6 +64,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
     debugImplementation(libs.androidx.compose.ui.tooling)
+    // Source: https://mvnrepository.com/artifact/androidx.activity/activity-compose
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
     implementation ("com.squareup.retrofit2:retrofit:3.0.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")

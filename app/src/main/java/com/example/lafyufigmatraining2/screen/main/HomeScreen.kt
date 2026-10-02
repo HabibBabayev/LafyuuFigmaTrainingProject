@@ -3,27 +3,27 @@ package com.example.lafyufigmatraining2.screen.main
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyGridItemScope
+import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
-
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Icon
 
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,22 +33,31 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 
 import com.example.lafyufigmatraining2.R
+import com.example.lafyufigmatraining2.model.Product
 import com.example.lafyufigmatraining2.navigation.Categories
 import com.example.lafyufigmatraining2.screen.customComponents.CardViewTimer
 import com.example.lafyufigmatraining2.screen.customComponents.CategoryLazyColumn
 import com.example.lafyufigmatraining2.screen.customComponents.CustomRowProductList
+import com.example.lafyufigmatraining2.screen.customComponents.LazyGridColumnItem
 import com.example.lafyufigmatraining2.screen.customComponents.RecommendedProduct
-import com.example.lafyufigmatraining2.screen.customComponents.categories
+import com.example.lafyufigmatraining2.screen.stateAndEventControl.HomeUiState
 
 import com.example.lafyufigmatraining2.ui.theme.BlueFF
-import com.example.lafyufigmatraining2.ui.theme.NavalBlue
 import com.example.lafyufigmatraining2.ui.theme.SoftGray
 
 import com.example.lafyufigmatraining2.ui.theme.poppinLight
-import okhttp3.internal.http2.Header
 
 @Composable
-fun HomeScreen(modifier: Modifier){
+fun HomeScreen(modifier: Modifier,
+               state: HomeUiState){
+
+    LaunchedEffect(state) {
+
+    }
+
+
+
+
     val categories=mutableListOf<Categories>()
     categories.add(Categories(R.drawable.man_shirt,"Man Shirt"))
     categories.add(Categories(R.drawable.dress,"Dress"))
@@ -60,7 +69,7 @@ fun HomeScreen(modifier: Modifier){
         modifier = Modifier.fillMaxSize()
             .background(Color.White)) {
         stickyHeader {
-            Column(Modifier.fillMaxWidth().background(Color.Red),
+            Column(Modifier.fillMaxWidth().background(Color.White).padding(top = 60.dp),
                 verticalArrangement = Arrangement.SpaceBetween) {
                 Row(Modifier.fillMaxWidth()
                     .padding(horizontal = 16.dp)
@@ -104,7 +113,7 @@ fun HomeScreen(modifier: Modifier){
                         tint = Color.Gray)
 
                 }
-                HorizontalDivider(Modifier.fillMaxSize().padding(vertical = 20.dp),thickness = 0.5.dp, color = SoftGray)
+                HorizontalDivider(Modifier.fillMaxSize().padding(vertical = 15.dp),thickness = 0.5.dp, color = SoftGray)
 
             }
 
@@ -120,11 +129,13 @@ fun HomeScreen(modifier: Modifier){
                     RecommendedProduct()
                 }
 
-
-
-
             }
+        }
+        items(state.productList){product->
+            LazyGridColumnItem(product)
         }
     }
 
 }
+
+

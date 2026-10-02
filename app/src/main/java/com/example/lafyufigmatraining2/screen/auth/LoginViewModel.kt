@@ -17,8 +17,9 @@ class LoginViewModel @Inject constructor(
     val repository: AppRepository,
     private val prefDataStore: DataStoreManager
 ) :
-    BaseViewModel<LoginUiState, LoginEvents>(initialState = LoginUiState()) {
-
+    BaseViewModel<LoginUiState, LoginEvents>() {
+    override val initialState: LoginUiState
+        get() = LoginUiState()
     override fun onEvent(event: LoginEvents) {
         when(event){
             is LoginEvents.onLoginAction->{

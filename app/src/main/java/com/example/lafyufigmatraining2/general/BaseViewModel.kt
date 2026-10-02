@@ -6,9 +6,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 abstract class BaseViewModel<state,event>(
-    initialState:state
 ): ViewModel() {
-
+    protected abstract val initialState:state
 private val _uiState= MutableStateFlow(initialState)
     val uiState get() = _uiState.asStateFlow()
 
