@@ -23,6 +23,7 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.BottomAppBarScrollBehavior
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Text
@@ -51,11 +52,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import coil.compose.AsyncImage
-
 import com.example.lafyufigmatraining2.R
 import com.example.lafyufigmatraining2.model.Product
-import com.example.lafyufigmatraining2.navigation.Categories
 import com.example.lafyufigmatraining2.navigation.NavBarScreen
+import com.example.lafyufigmatraining2.screen.stateAndEventControl.Categories
 import com.example.lafyufigmatraining2.ui.theme.BlueFF
 import com.example.lafyufigmatraining2.ui.theme.NavalBlue
 import com.example.lafyufigmatraining2.ui.theme.PrimaryRed
@@ -73,13 +73,13 @@ import kotlin.math.roundToInt
 @Composable
 fun CardViewTimer(modifier: Modifier) {
     var currentSeconds by remember {
-        mutableIntStateOf(10)
+        mutableIntStateOf(33)
     }
     var currentMinutes by remember {
-        mutableIntStateOf(0)
+        mutableIntStateOf(10)
     }
     var currentHours by remember {
-        mutableIntStateOf(0)
+        mutableIntStateOf(8)
     }
     var timeRuns by remember {
         mutableStateOf(true)
@@ -285,10 +285,12 @@ fun NavBarScreen(
     }
 }
 
-val categories = mutableListOf<Categories>()
+
 
 @Composable
-fun CategoryLazyColumn(categories: List<Categories>) {
+fun CategoryLazyColumn(categories: List<Categories>,
+                       onClickCategory: (text: String) -> Unit,
+                       onCategoryScreenClick:()->Unit) {
 
     Box(
         Modifier
@@ -308,7 +310,7 @@ fun CategoryLazyColumn(categories: List<Categories>) {
 
                 )
             TextButton(
-                onClick = {},
+                onClick = {onCategoryScreenClick()},
             ) {
                 Text(
                     text = "More Categories", style = TextStyle(
@@ -324,14 +326,14 @@ fun CategoryLazyColumn(categories: List<Categories>) {
             verticalAlignment = Alignment.CenterVertically
         ) {
             items(categories) { category ->
-                CategoryItem(category)
+                CategoryItem(category,onClickCategory)
             }
         }
     }
 }
 
 @Composable
-fun CategoryItem(item: Categories) {
+fun CategoryItem(item: Categories,onClickCategory:(text: String)->Unit) {
     Column(
         Modifier.size(width = 70.dp, height = 108.dp), verticalArrangement = Arrangement.Center
     ) {
@@ -342,12 +344,17 @@ fun CategoryItem(item: Categories) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Icon(
-                imageVector = ImageVector.vectorResource(item.icon),
-                contentDescription = item.name,
-                tint = BlueFF
+            IconButton(onClick = {onClickCategory(item.name)},
+                Modifier.fillMaxSize()) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(item.icon),
+                    contentDescription = item.name,
+                    tint = BlueFF,
 
-            )
+
+                    )
+            }
+
 
         }
         Spacer(Modifier.height(8.dp))
@@ -401,6 +408,7 @@ fun CustomRowProductList(category: List<Categories>, header: String, detailLink:
             verticalAlignment = Alignment.CenterVertically
         ) {
             items(category) { category ->
+
                 SaleProductItem(category)
             }
         }

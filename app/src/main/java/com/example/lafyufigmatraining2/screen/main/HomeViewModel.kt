@@ -15,6 +15,12 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     val repository: AppRepository
 ): BaseViewModel<HomeUiState, HomeEvents>() {
+
+
+
+
+
+
     override fun onEvent(event: HomeEvents) {
         when(event){
             is HomeEvents.GetProduct->{
@@ -22,6 +28,7 @@ class HomeViewModel @Inject constructor(
             }
         }
     }
+
 
     override val initialState: HomeUiState
         get() = HomeUiState()

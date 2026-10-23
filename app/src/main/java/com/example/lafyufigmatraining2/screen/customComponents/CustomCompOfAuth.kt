@@ -44,7 +44,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lafyufigmatraining2.R
-import com.example.lafyufigmatraining2.navigation.Categories
 import com.example.lafyufigmatraining2.ui.theme.BlueFF
 import com.example.lafyufigmatraining2.ui.theme.outlinedTextFieldCurves
 import com.example.lafyufigmatraining2.ui.theme.outlinedTextFieldFocusedBorders

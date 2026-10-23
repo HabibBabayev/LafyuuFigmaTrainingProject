@@ -1,0 +1,20 @@
+<!--
+  ~ Copyright (C) 2026 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:viewportHeight="24" android:viewportWidth="24" android:width="24dp">
+      
+    <path android:fillColor="#212121" android:pathData="M12.75,3C12.336,3 12,3.336 12,3.75C12,4.164 12.336,4.5 12.75,4.5H14.177L15.132,8H8.5V5.75C8.5,5.336 8.164,5 7.75,5H7.749H4.75C4.336,5 4,5.336 4,5.75C4,6.164 4.336,6.5 4.75,6.5H7V8.688L6.698,10.5C4.375,10.528 2.5,12.42 2.5,14.75C2.5,17.097 4.403,19 6.75,19C9.097,19 11,17.097 11,14.75C11,14.688 10.999,14.626 10.996,14.565L15.652,9.908L15.925,10.91C14.491,11.593 13.5,13.056 13.5,14.75C13.5,17.097 15.403,19 17.75,19C20.097,19 22,17.097 22,14.75C22,12.403 20.097,10.5 17.75,10.5C17.623,10.5 17.497,10.506 17.373,10.517L15.474,3.553C15.385,3.226 15.088,3 14.75,3H12.75ZM16.33,12.394L17.026,14.947C17.135,15.347 17.548,15.583 17.947,15.474C18.347,15.365 18.583,14.952 18.474,14.553L17.777,12C19.284,12.015 20.5,13.24 20.5,14.75C20.5,16.269 19.269,17.5 17.75,17.5C16.231,17.5 15,16.269 15,14.75C15,13.751 15.533,12.876 16.33,12.394ZM10.565,12.875C10.079,11.889 9.223,11.118 8.178,10.746L8.385,9.5H13.939L10.565,12.875ZM7.925,12.263C8.636,12.599 9.179,13.231 9.396,14H7.635L7.925,12.263ZM6.445,12.017L6.01,14.627C5.974,14.844 6.035,15.067 6.178,15.235C6.32,15.403 6.53,15.5 6.75,15.5H9.396C9.07,16.654 8.009,17.5 6.75,17.5C5.231,17.5 4,16.269 4,14.75C4,13.334 5.07,12.168 6.445,12.017Z"/>
+    
+</vector>

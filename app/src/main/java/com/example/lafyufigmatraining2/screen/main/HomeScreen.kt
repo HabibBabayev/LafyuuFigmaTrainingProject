@@ -34,13 +34,15 @@ import androidx.compose.ui.unit.dp
 
 import com.example.lafyufigmatraining2.R
 import com.example.lafyufigmatraining2.model.Product
-import com.example.lafyufigmatraining2.navigation.Categories
+
 import com.example.lafyufigmatraining2.screen.customComponents.CardViewTimer
 import com.example.lafyufigmatraining2.screen.customComponents.CategoryLazyColumn
 import com.example.lafyufigmatraining2.screen.customComponents.CustomRowProductList
 import com.example.lafyufigmatraining2.screen.customComponents.LazyGridColumnItem
 import com.example.lafyufigmatraining2.screen.customComponents.RecommendedProduct
+import com.example.lafyufigmatraining2.screen.stateAndEventControl.CategoryUiState
 import com.example.lafyufigmatraining2.screen.stateAndEventControl.HomeUiState
+import com.example.lafyufigmatraining2.screen.stateAndEventControl.Categories
 
 import com.example.lafyufigmatraining2.ui.theme.BlueFF
 import com.example.lafyufigmatraining2.ui.theme.SoftGray
@@ -49,22 +51,15 @@ import com.example.lafyufigmatraining2.ui.theme.poppinLight
 
 @Composable
 fun HomeScreen(modifier: Modifier,
-               state: HomeUiState){
-
-    LaunchedEffect(state) {
-
+               state: HomeUiState,
+               onCategoryClick:(category: String)->Unit,
+               onCategoryScreenClick:()->Unit,
+              ){
+ val categories=mutableListOf<Categories>()
+    for (item in CategoryUiState().category){
+        categories.add(item)
+        if (item.name=="men-shoes") break
     }
-
-
-
-
-    val categories=mutableListOf<Categories>()
-    categories.add(Categories(R.drawable.man_shirt,"Man Shirt"))
-    categories.add(Categories(R.drawable.dress,"Dress"))
-    categories.add(Categories(R.drawable.man_bag,"Man Work Equipment"))
-    categories.add(Categories(R.drawable.woman_bag,"Woman Bag"))
-    categories.add(Categories(R.drawable.man_shoes2,"Man Shoes"))
-    categories.add(Categories(R.drawable.man_shoes2,"High Heels"))
     LazyVerticalGrid(columns = GridCells.Fixed(2),
         modifier = Modifier.fillMaxSize()
             .background(Color.White)) {
@@ -123,7 +118,7 @@ fun HomeScreen(modifier: Modifier,
                 Column(Modifier.fillMaxWidth()) {
 
             CardViewTimer(modifier=modifier.background(Color.Cyan))
-            CategoryLazyColumn(categories = categories)
+            CategoryLazyColumn(categories = categories,onCategoryClick,onCategoryScreenClick)
                     CustomRowProductList(categories,"Flash Sale"){}
                     CustomRowProductList(categories,"Mega Sale"){}
                     RecommendedProduct()

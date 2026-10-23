@@ -48,4 +48,18 @@ val apiService: ApiService
             emit(Resource.Error(e.message.toString()))
         }
     }.flowOn(Dispatchers.IO)
+
+    fun getProductsByCategory(category: String): Flow<Resource<List<Product>>> =flow{
+        emit(Resource.Loading)
+        try {
+            val response=apiService.getItemByCategory(category)
+            if (response.isSuccessful){
+                response.body()?.products?.let { products ->
+                    emit(Resource.Success(products))
+                }?:emit(Resource.Error(response.message()))
+            }else emit(Resource.Error(response.message()))
+        } catch (e: Exception){
+            emit(Resource.Error(e.message.toString()))
+        }
+    }.flowOn(Dispatchers.IO)
 }

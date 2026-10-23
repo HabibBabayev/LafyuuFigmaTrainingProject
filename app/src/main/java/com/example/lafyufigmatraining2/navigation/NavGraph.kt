@@ -9,16 +9,17 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.lafyufigmatraining2.screen.auth.authNavigation
+import com.example.lafyufigmatraining2.screen.details.detailsScreen
 import com.example.lafyufigmatraining2.screen.main.homeScreen
 import com.example.lafyufigmatraining2.screen.root.splashNavigation
 
 @Composable
 fun NavGraph(modifier: Modifier,navController: NavHostController){
-
-
     NavHost(navController=navController, startDestination = NavRoute.Home.route){
         splashNavigation(navController=navController, modifier = modifier)
         authNavigation(navController=navController,modifier=modifier)
         homeScreen(navController=navController,modifier=modifier)
+        detailsScreen(navController=navController,modifier=modifier)
+
     }
 }
