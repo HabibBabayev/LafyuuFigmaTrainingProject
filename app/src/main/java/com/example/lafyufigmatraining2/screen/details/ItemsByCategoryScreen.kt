@@ -12,14 +12,14 @@ import com.example.lafyufigmatraining2.R
 import com.example.lafyufigmatraining2.screen.customComponents.CustomDetailsHeader
 
 @Composable
-fun ItemsByCategoryScreen(modifier: Modifier,state: CategoryUiState,onBackClick:()->Unit,category: String){
+fun ItemsByCategoryScreen(modifier: Modifier,state: CategoryUiState,onBackClick:()->Unit,category: String,onSingleItemClick:(id:Int)-> Unit){
 
 
     LazyVerticalGrid(columns = GridCells.Fixed(2)) {
         stickyHeader {    CustomDetailsHeader(onBackClick,category,null,{},null,{}) }
         items(state.products){product->
 
-            LazyGridColumnItem(product)
+            LazyGridColumnItem(product, onSingleProductClick = onSingleItemClick)
         }
     }
 }

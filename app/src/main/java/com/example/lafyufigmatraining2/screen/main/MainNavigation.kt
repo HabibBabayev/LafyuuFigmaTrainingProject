@@ -42,10 +42,8 @@ val viewmodel: HomeViewModel= hiltViewModel()
                     NavBarScreen.OfferScreen,
                     NavBarScreen.ProfileScreen
                 )
-
                 NavBarScreen(navController=navController,items=items,scrollBehavior=scrollBehavior)
             }
-
         ) { innerPadding ->
             HomeScreen(modifier=modifier.padding(innerPadding),
                 state=state,
@@ -55,7 +53,9 @@ val viewmodel: HomeViewModel= hiltViewModel()
                 onCategoryScreenClick = {
                     navController.navigate(NavRoute.Category.route)
                 },
-
+                onSingleItemClick = {id->
+                    navController.navigate(route= NavRoute.SingleProduct.getId(id))
+                }
             )
         }
 

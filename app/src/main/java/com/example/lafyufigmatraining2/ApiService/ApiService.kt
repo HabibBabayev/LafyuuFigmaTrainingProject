@@ -22,5 +22,8 @@ interface ApiService {
     suspend fun getItemByCategory(
         @Path("category")category: String
     ): Response<ProductResponseModel>
-
+    @GET("products/{id}")
+    suspend fun getSingleProduct(
+        @Path("id")id: Int
+    ): Response<Product>
 }

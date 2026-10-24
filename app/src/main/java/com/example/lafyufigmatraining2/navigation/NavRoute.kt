@@ -9,4 +9,7 @@ sealed class NavRoute(val route:String) {
         fun getCategory(category: String)="categoryProducts_screen/$category"
     }
     data object Category: NavRoute("category_screen")
+    data object SingleProduct: NavRoute("product/{id}"){
+        fun getId(id: Int)="product/$id"
+    }
 }

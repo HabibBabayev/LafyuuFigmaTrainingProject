@@ -62,4 +62,18 @@ val apiService: ApiService
             emit(Resource.Error(e.message.toString()))
         }
     }.flowOn(Dispatchers.IO)
+
+    fun getSingleProduct(id:Int):Flow<Resource<Product>> =flow{
+        emit(Resource.Loading)
+        try {
+            val response=apiService.getSingleProduct(id)
+            if (response.isSuccessful){
+                response.body()?.let {
+                    emit(Resource.Success(it))
+                }?:emit(Resource.Error(response.message()))
+            } else emit(Resource.Error(response.message()))
+        } catch (e: Exception){
+            emit(Resource.Error(e.message.toString()))
+        }
+    }.flowOn(Dispatchers.IO)
 }

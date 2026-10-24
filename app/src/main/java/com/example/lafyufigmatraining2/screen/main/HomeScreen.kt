@@ -54,6 +54,7 @@ fun HomeScreen(modifier: Modifier,
                state: HomeUiState,
                onCategoryClick:(category: String)->Unit,
                onCategoryScreenClick:()->Unit,
+               onSingleItemClick:(id:Int)->Unit
               ){
  val categories=mutableListOf<Categories>()
     for (item in CategoryUiState().category){
@@ -127,7 +128,7 @@ fun HomeScreen(modifier: Modifier,
             }
         }
         items(state.productList){product->
-            LazyGridColumnItem(product)
+            LazyGridColumnItem(product, onSingleProductClick = onSingleItemClick)
         }
     }
 

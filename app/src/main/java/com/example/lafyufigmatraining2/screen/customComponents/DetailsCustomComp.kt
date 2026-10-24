@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -29,6 +30,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextMotion
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.lafyufigmatraining2.R
@@ -42,7 +44,8 @@ import com.example.lafyufigmatraining2.ui.theme.poppinBold
 
 @Composable
 fun CustomDetailsHeader(onBackClick:()->Unit,
-                        title: String,secondIcon:Int?,
+                        title: String?,
+                        secondIcon:Int?,
                         onSecondIconClick:()->Unit,thirdIcon:Int?,
                         onThirdIconClick:()->Unit){
     Column(Modifier.fillMaxWidth().background(Color.White).padding(top = 60.dp),
@@ -71,13 +74,16 @@ fun CustomDetailsHeader(onBackClick:()->Unit,
                 tint = if (backClickPressed) Color.Black else SoftPurple
             )
                 Text(
-                    text = title,
+                    text = title?:"",
+                    Modifier.width(219.dp),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
                     style = TextStyle(
                         color = NavalBlue,
                         textMotion = TextMotion.Animated,
-                        fontSize = 20.sp,
-                        fontFamily = poppinBold
-                    )
+                        fontSize = 16.sp,
+                        fontFamily = poppinBold,
+                    ),
                 )}
             Row() {
                 Icon(imageVector = ImageVector.vectorResource(secondIcon?:R.drawable.search_icon),

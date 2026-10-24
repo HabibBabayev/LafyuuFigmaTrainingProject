@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -107,19 +108,11 @@ fun CardViewTimer(modifier: Modifier) {
                                 }
                             }
                         }
-
                     }
-
-
                 }
-
-
             }
-
         }
-
     }
-
     Box(
         Modifier
             .fillMaxWidth()
@@ -167,7 +160,6 @@ fun CardViewTimer(modifier: Modifier) {
                         )
                     )
                 }
-
                 Text(
                     text = ":", style = TextStyle(
                         fontFamily = poppinBold, letterSpacing = 0.5.sp, color = Color.White
@@ -286,11 +278,12 @@ fun NavBarScreen(
 }
 
 
-
 @Composable
-fun CategoryLazyColumn(categories: List<Categories>,
-                       onClickCategory: (text: String) -> Unit,
-                       onCategoryScreenClick:()->Unit) {
+fun CategoryLazyColumn(
+    categories: List<Categories>,
+    onClickCategory: (text: String) -> Unit,
+    onCategoryScreenClick: () -> Unit
+) {
 
     Box(
         Modifier
@@ -310,7 +303,7 @@ fun CategoryLazyColumn(categories: List<Categories>,
 
                 )
             TextButton(
-                onClick = {onCategoryScreenClick()},
+                onClick = { onCategoryScreenClick() },
             ) {
                 Text(
                     text = "More Categories", style = TextStyle(
@@ -326,14 +319,14 @@ fun CategoryLazyColumn(categories: List<Categories>,
             verticalAlignment = Alignment.CenterVertically
         ) {
             items(categories) { category ->
-                CategoryItem(category,onClickCategory)
+                CategoryItem(category, onClickCategory)
             }
         }
     }
 }
 
 @Composable
-fun CategoryItem(item: Categories,onClickCategory:(text: String)->Unit) {
+fun CategoryItem(item: Categories, onClickCategory: (text: String) -> Unit) {
     Column(
         Modifier.size(width = 70.dp, height = 108.dp), verticalArrangement = Arrangement.Center
     ) {
@@ -344,8 +337,10 @@ fun CategoryItem(item: Categories,onClickCategory:(text: String)->Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            IconButton(onClick = {onClickCategory(item.name)},
-                Modifier.fillMaxSize()) {
+            IconButton(
+                onClick = { onClickCategory(item.name) },
+                Modifier.fillMaxSize()
+            ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(item.icon),
                     contentDescription = item.name,
@@ -519,7 +514,7 @@ fun RecommendedProduct() {
 }
 
 @Composable
-fun LazyGridColumnItem(product: Product) {
+fun LazyGridColumnItem(product: Product, onSingleProductClick: (id: Int) -> Unit) {
     var discountedPrice = 0.0
     if (product.price != null && product.discountPercentage != null) {
         discountedPrice = product.price * (1.00 - product.discountPercentage / 100)
@@ -550,20 +545,18 @@ fun LazyGridColumnItem(product: Product) {
                     .padding(16.dp)
                     .clip(shape = RoundedCornerShape(5.dp))
                     .background(Color.Gray.copy(alpha = 0.2f), shape = RoundedCornerShape(5.dp))
+                    .clickable(
+                        enabled = true,
+                    ) {
+                        onSingleProductClick(product.id ?: 0)
+                    }
             )
             Log.e("sekil", product.images?.firstOrNull().toString())
-//            Image(painter = painterResource(R.drawable.product_pic),
-//                contentDescription = product.title,
-//                Modifier.fillMaxWidth()
-//                    .padding(16.dp)
-//                    .clip(shape = RoundedCornerShape(5.dp))
-//            )
             Text(
                 text = product.title.toString(), Modifier.fillMaxWidth(), style = TextStyle(
                     fontSize = 12.sp,
                     fontFamily = poppinSemiBold,
                     color = NavalBlue,
-
                     ), overflow = TextOverflow.Clip, maxLines = 2
             )
             Text(
@@ -571,7 +564,6 @@ fun LazyGridColumnItem(product: Product) {
                     fontSize = 12.sp,
                     fontFamily = poppinSemiBold,
                     color = BlueFF,
-
                     ), overflow = TextOverflow.Clip, maxLines = 1
             )
             Row(
@@ -587,15 +579,8 @@ fun LazyGridColumnItem(product: Product) {
                     style = TextStyle(
                         color = PrimaryRed, fontSize = 10.sp, fontFamily = poppinBold
                     ),
-
                     )
-
-
             }
-
-
         }
-
-
     }
 }
