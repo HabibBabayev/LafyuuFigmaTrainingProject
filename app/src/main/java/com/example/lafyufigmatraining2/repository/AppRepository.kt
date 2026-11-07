@@ -1,5 +1,6 @@
 package com.example.lafyufigmatraining2.repository
 
+import androidx.compose.ui.geometry.Rect
 import com.example.lafyufigmatraining2.ApiService.ApiService
 import com.example.lafyufigmatraining2.general.Resource
 import com.example.lafyufigmatraining2.model.LoginRequestModel
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.FlowCollector
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import okhttp3.Response
 import javax.inject.Inject
 
 class AppRepository @Inject constructor(
@@ -76,4 +78,19 @@ val apiService: ApiService
             emit(Resource.Error(e.message.toString()))
         }
     }.flowOn(Dispatchers.IO)
+
+    fun getSearchedProduct(query: String):Flow<Resource<List<Product>>> =flow {
+        emit(Resource.Loading)
+        try {
+            val response=apiService.getSearchedProduct(query)
+            if (response.isSuccessful) {
+                response.body()?.products?.let {productList->
+                    emit(Resource.Success(productList))
+                }?:emit(Resource.Error(response.message()))
+            } else emit(Resource.Error(response.message()))
+        } catch (e: Exception){
+            emit(Resource.Error(e.message.toString()))
+        }
+    }.flowOn(Dispatchers.IO)
+
 }

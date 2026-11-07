@@ -26,4 +26,8 @@ interface ApiService {
     suspend fun getSingleProduct(
         @Path("id")id: Int
     ): Response<Product>
+    @GET("products/search")
+    suspend fun  getSearchedProduct(
+        @Query("q")query: String
+    ): Response<ProductResponseModel>
 }

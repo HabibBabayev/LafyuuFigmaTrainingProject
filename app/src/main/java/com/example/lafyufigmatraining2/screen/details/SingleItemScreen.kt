@@ -3,6 +3,8 @@ package com.example.lafyufigmatraining2.screen.details
 import android.R.attr.contentDescription
 import android.R.attr.fontFamily
 import android.util.Log
+import android.util.Log.i
+import android.widget.Toolbar
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -21,9 +23,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -50,34 +56,10 @@ import kotlin.collections.orEmpty
 
 @Composable
 fun SingleItemScreen(modifier: Modifier, state: SingleItemUiState,onBackClick:()->Unit,){
-    Column() {
-        AsyncImage(model = state.product?.images?.get(0),
-            contentDescription = null,
-            Modifier.fillMaxWidth()
-                .height(200.dp)
-                .background(Color.Gray.copy(alpha = 0.2f))
-        )
-
-        Row(Modifier.fillMaxWidth().wrapContentHeight(),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            val images = state.product?.images.orEmpty().filterNotNull()
-            repeat(images.size){
-                val color=BlueFF
-                Row(Modifier.fillMaxWidth().wrapContentHeight(),) {
-                    Box(Modifier.size(16.dp)
-                        .clip(CircleShape)
-                        .background(color)) {
-
-                    }
-                }
-
-            }
-        }
-
-    }
+var isLoading = remember{ mutableStateOf(true) }
 
 
-
+if (isLoading.value) CircularProgressIndicator()
     LazyColumn(Modifier.fillMaxSize()) {
         stickyHeader {
             CustomDetailsHeader(onBackClick = onBackClick,
@@ -91,10 +73,33 @@ fun SingleItemScreen(modifier: Modifier, state: SingleItemUiState,onBackClick:()
             Column(Modifier.fillMaxWidth()
                 .fillMaxHeight(0.293F)
                 ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    AsyncImage(model = state.product?.images?.get(0),
+                        contentDescription = null,
+                        Modifier.fillMaxWidth()
+                            .height(300.dp)
+                            .background(Color.Gray.copy(alpha = 0.2f)),
+                        onSuccess = {isLoading.value=false}
+                    )
 
+                    Row(Modifier.fillMaxWidth().wrapContentHeight(),
+                        horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                        val images = state.product?.images.orEmpty().filterNotNull()
+                        repeat(images.size){
+                            val color=BlueFF
+                            Row(Modifier.fillMaxWidth().wrapContentHeight(),) {
+                                Box(Modifier.size(50.dp)
+                                    .padding(horizontal = 20.dp)
+                                    .clip(CircleShape)
+                                    .background(color)) {
 
+                                }
+                            }
 
+                        }
+                    }
 
+                }
                 Row(modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.Top) {
@@ -112,6 +117,7 @@ fun SingleItemScreen(modifier: Modifier, state: SingleItemUiState,onBackClick:()
                             )
                         )
                         RatingBar(state.product?.rating?:0.00)
+
                         Text(text ="$${state.product?.price}",
                             style= TextStyle(
                                 color= BlueFF,
